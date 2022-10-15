@@ -29,7 +29,7 @@
 
     //Названеие файла
     filename: (_, file, cb) => {
-      cb(null, file.originalname);
+      cb(null, file.originalname) ;
     },
   });
 
