@@ -8,7 +8,7 @@
 
   mongoose
     .connect(
-      process.env.MONGODB_URL
+      process.env.MONGODB_URI || 'mongodb+srv://admin:blog-mern@blog-mern.uujfxbe.mongodb.net/?retryWrites=true&w=majority'
     )
     .then(() => console.log('DB Ok'))
     .catch((err) => console.log('DB error', err))
@@ -57,7 +57,7 @@
   app.delete('/posts/:id', checkAuth, PostController.remove);
   app.patch('/posts/:id', checkAuth, postCreateValidation, handleValidationErrors, PostController.update);
 
-  app.listen(process.env.PORT || 4444, (err) => {
+  app.listen( process.env.PORT || 4444, (err) => {
     if(err) {
         return console.log(err);
     }
