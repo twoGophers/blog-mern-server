@@ -6,11 +6,11 @@
   import { checkAuth, handleValidationErrors } from './utils/index.js';
   import cors from 'cors';
 
-  const PORT = process.env.MONGODB_URL || 4444
+  const PORT = process.env.PORT || 4444
 
   mongoose
     .connect(
-      process.env.MONGODB_URL ||
+      process.env.MONGODB_URI ||
       'mongodb+srv://admin:blog-mern@blog-mern.uujfxbe.mongodb.net/?retryWrites=true&w=majority'
     )
     .then(() => console.log('DB Ok'))
