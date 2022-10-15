@@ -11,7 +11,7 @@
 
   mongoose
     .connect(
-      'mongodb+srv://admin:blog-mern@blog-mern.uujfxbe.mongodb.net/?retryWrites=true&w=majority' || process.env.MONGODB_URI
+      process.env.MONGODB_URL || process.env.MONGODB_URI
       // 'mongodb+srv://admin:blog-mern@blog-mern.uujfxbe.mongodb.net/?retryWrites=true&w=majority'
     )
     .then(() => console.log('DB Ok'))
