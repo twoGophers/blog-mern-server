@@ -1,4 +1,5 @@
   import express  from "express";
+  import fs from 'fs';
   import mongoose from 'mongoose';
   import { loginValidation, postCreateValidation, registerValidation } from './validations/validations.js';
   import multer from 'multer';
@@ -10,7 +11,7 @@
 
   mongoose
     .connect(
-      process.env.MONGODB_URL || process.env.MONGODB_URI
+      'mongodb+srv://admin:blog-mern@blog-mern.uujfxbe.mongodb.net/?retryWrites=true&w=majority' || process.env.MONGODB_URI
       // 'mongodb+srv://admin:blog-mern@blog-mern.uujfxbe.mongodb.net/?retryWrites=true&w=majority'
     )
     .then(() => console.log('DB Ok'))
@@ -24,6 +25,9 @@
   const storage = multer.diskStorage({
     //Описание пути для хранения картинок
     destination: (_, __, cb) => {
+      if(!fs.existsSync('uploads')) {
+        fs.mkdirSync('uploads');
+      }
       cb(null, 'uploads');
     },
 
