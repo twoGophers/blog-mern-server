@@ -2,11 +2,9 @@ import PostModel from '../models/Post.js';
 
 export const getAll = async (req, res) => {
     try{
-        const posts = await PostModel.find().populate('user').exec();
-
+        const posts = await PostModel.find().sort({ createdAt: 'desc' }).populate('user').exec();
         res.json(posts);
     } catch(err) {
-        console.log(err);
         console.log(err);
         res.status(404).json({
           message: 'Не удалось отобразить статьи',
