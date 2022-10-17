@@ -12,6 +12,18 @@ export const getAll = async (req, res) => {
     }
 };
 
+export const getAllPopular = async (req, res) => {
+  try{
+      const posts = await PostModel.find().sort({ viewsCount: 'desc' }).populate('user').exec();
+      res.json(posts);
+  } catch(err) {
+      console.log(err);
+      res.status(404).json({
+        message: 'Не удалось отобразить статьи',
+      })
+  }
+};
+
 export const getOne = async (req, res) => {
     try {
       const postId = req.params.id;
