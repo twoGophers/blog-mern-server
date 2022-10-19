@@ -4,13 +4,15 @@ import UserModel from '../models/User.js';
 
 export const createComment = async (req, res) => {
     try {
+        const user = req.userId;
         const newComment = new CommentModel({
             comment: req.body.comment,
+            user
         })
 
-        // if (!comment) {
-        //     return res.json({ message: 'Комментарий не может быть пустым' })
-        // } 
+        if (!req.body.comment) {
+            return res.json({ message: 'Комментарий не может быть пустым' })
+        } 
         
         await newComment.save();
 
@@ -29,3 +31,17 @@ export const createComment = async (req, res) => {
         res.json({ message: 'Что-то пошло не так.' });
     }
 };
+
+export const getAllComment = async (req, res) => {
+    try{
+        const comment = await CommentModel.find().populate('comment').limit( 10 ).exec();
+        res.json(comment);
+    } catch(err) {
+        console.log(err);
+        res.status(404).json({
+          message: 'Не удалось отобразить статьи',
+        })
+    }
+};
+
+

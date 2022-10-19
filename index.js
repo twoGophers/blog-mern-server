@@ -72,6 +72,7 @@
   //Comments
   app.post('/posts/:id/comments', checkAuth, CommentsController.createComment);
   app.get('/posts/:id/comments', PostController.getComment);
+  app.get('/comments', CommentsController.getAllComment);
 
   app.listen( PORT, (err) => {
     if(err) {

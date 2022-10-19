@@ -11,7 +11,7 @@ const UserSchema = new mongoose.Schema({
         unique: true
     },
     passwordHash: {
-         type: String,
+        type: String,
         required: true,
     },
     avatarUrl: String,
@@ -20,6 +20,12 @@ const UserSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Post',
         },
+    ],    
+    comments: [
+        { 
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: 'Comment' 
+        }
     ],
 }, 
 {
