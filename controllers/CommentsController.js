@@ -4,11 +4,11 @@ import UserModel from '../models/User.js';
 
 export const createComment = async (req, res) => {
     try {
-        const user = req.userId;
+        const { fullName } = await UserModel.findById(req.userId).exec();
         const newComment = new CommentModel({
             comment: req.body.comment,
-            user
-        })
+            userName: fullName
+        });
 
         if (!req.body.comment) {
             return res.json({ message: 'Комментарий не может быть пустым' })
@@ -20,13 +20,15 @@ export const createComment = async (req, res) => {
 
         try {
             await PostModel.findByIdAndUpdate( postId, {
-                $push: { comments: newComment },
+                $push: { 
+                    comments: newComment,
+                }
             })
         } catch (error) {
             console.log(error)
         };
 
-        res.json(newComment)
+        res.json(newComment);
     } catch (error) {
         res.json({ message: 'Что-то пошло не так.' });
     }
@@ -43,5 +45,4 @@ export const getAllComment = async (req, res) => {
         })
     }
 };
-
 
