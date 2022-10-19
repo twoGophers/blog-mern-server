@@ -3,7 +3,7 @@
   import mongoose from 'mongoose';
   import { loginValidation, postCreateValidation, registerValidation } from './validations/validations.js';
   import multer from 'multer';
-  import { UserController, PostController } from './controllers/index.js';
+  import { UserController, PostController, CommentsController } from './controllers/index.js';
   import { checkAuth, handleValidationErrors } from './utils/index.js';
   import cors from 'cors';
   import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
@@ -68,6 +68,10 @@
   app.post('/posts', checkAuth, postCreateValidation, handleValidationErrors, PostController.create);
   app.delete('/posts/:id', checkAuth, PostController.remove);
   app.patch('/posts/:id', checkAuth, postCreateValidation, handleValidationErrors, PostController.update);
+
+  //Comments
+  app.post('/posts/:id/comments', checkAuth, CommentsController.createComment);
+  app.get('/posts/:id/comments', PostController.getComment);
 
   app.listen( PORT, (err) => {
     if(err) {

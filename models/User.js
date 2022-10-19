@@ -14,7 +14,13 @@ const UserSchema = new mongoose.Schema({
          type: String,
         required: true,
     },
-    avatarUrl: String
+    avatarUrl: String,
+    posts: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Post',
+        },
+    ],
 }, 
 {
     timestamps: true
