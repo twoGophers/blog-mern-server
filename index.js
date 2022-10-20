@@ -28,15 +28,18 @@
   //Хранилище для картинок - мультер
   const storage = multer.diskStorage({
     //Описание пути для хранения картинок
-    destination: (_, __, cb) => {
-      if(!fs.existsSync('uploads')) {
-        fs.mkdirSync('uploads');
+    destination: (_, file, cb) => {
+      if(_.originalUrl === '/upload') {
+        if(!fs.existsSync('uploads')) {
+          fs.mkdirSync('uploads');
+        }
+        cb(null, 'uploads');    
+      } else {
+        if(!fs.existsSync('avatar')) {
+          fs.mkdirSync('avatar');
+        }
+        cb(null, 'avatar');
       }
-      if(!fs.existsSync('avatar')) {
-        fs.mkdirSync('avatar');
-      }
-      cb(null, 'uploads');
-      cb(null, 'avatar');
     },
 
     //Названеие файла
