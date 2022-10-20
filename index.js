@@ -32,7 +32,11 @@
       if(!fs.existsSync('uploads')) {
         fs.mkdirSync('uploads');
       }
+      if(!fs.existsSync('avatar')) {
+        fs.mkdirSync('avatar');
+      }
       cb(null, 'uploads');
+      cb(null, 'avatar');
     },
 
     //Названеие файла
@@ -43,6 +47,7 @@
 
   const upload = multer({ storage }) ;
   app.use('/uploads', express.static('uploads'));
+  app.use('/avatar', express.static('avatar'));
 
   //Avtor
   app.post('/auth/login', loginValidation, handleValidationErrors,  UserController.login );
@@ -56,6 +61,12 @@
     res.json({
       url: `/uploads/${req.file.originalname}`,
 
+    });
+  });
+
+  app.post('/avatar', upload.single('image'), (req, res) => {
+    res.json({
+      url: `/avatar/${req.file.originalname}`,
     });
   });
 
