@@ -29,7 +29,8 @@ const PostSchema = new mongoose.Schema({
             ref: 'Comment' 
         }
     ],
-    imageUrl: String
+    imageUrl: String,
+    imageAvatarUrl: String,
 }, 
 {
     timestamps: true

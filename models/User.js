@@ -14,7 +14,6 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    imageAvatar: String,
     posts: [
         {
             type: mongoose.Schema.Types.ObjectId,
@@ -26,7 +25,8 @@ const UserSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId, 
             ref: 'Comment' 
         }
-    ],
+    ], 
+    imageAvatar: String,
 }, 
 {
     timestamps: true

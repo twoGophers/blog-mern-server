@@ -4,10 +4,11 @@ import UserModel from '../models/User.js';
 
 export const createComment = async (req, res) => {
     try {
-        const { fullName } = await UserModel.findById(req.userId).exec();
+        const { fullName, imageAvatar } = await UserModel.findById(req.userId).exec();
         const newComment = new CommentModel({
             comment: req.body.comment,
-            userName: fullName
+            userName: fullName,
+            imageAvatarUrl: imageAvatar
         });
 
         if (!req.body.comment) {

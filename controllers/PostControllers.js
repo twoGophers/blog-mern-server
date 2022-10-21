@@ -1,5 +1,6 @@
 import Comment from '../models/Comment.js';
 import PostModel from '../models/Post.js';
+import UserModel from '../models/User.js';
 
 export const getAll = async (req, res) => {
     try{
@@ -100,13 +101,14 @@ export const remove = async (req, res) => {
 
 export const create = async (req, res) => {
     try {
-
+        const { imageAvatar } = await UserModel.findById(req.userId).exec();
         const doc = new PostModel({
             title: req.body.title,
             text: req.body.text,
             imageUrl: req.body.imageUrl,
             tags: req.body.tags.split(','),
             user: req.userId,
+            imageAvatarUrl: imageAvatar
         });
 
         const post = await doc.save();
