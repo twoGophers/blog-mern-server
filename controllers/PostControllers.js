@@ -163,6 +163,20 @@ export const getLastTags = async (req, res) => {
   }
 };
 
+export const getTagsFilter = async (req, res) => {
+  try{
+    const tags = req.params
+    const posts = await PostModel.find().exec();
+
+    res.json(posts);
+  } catch(err) {
+      console.log(err);
+      res.status(404).json({
+        message: 'Не удалось отобразить статьи',
+      })
+  }
+};
+
 //Comment in to post
 export const getComment = async (req, res) => {
   try {
