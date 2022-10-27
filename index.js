@@ -24,6 +24,7 @@
   const app = express();
 
   app.use(express.json());
+  app.use(express.static('avatar'));
   app.use(cors());
   //Хранилище для картинок - мультер
   const storage = multer.diskStorage({
