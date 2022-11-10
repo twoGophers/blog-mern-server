@@ -7,10 +7,15 @@
   import { checkAuth, handleValidationErrors } from './utils/index.js';
   import cors from 'cors';
   import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
-  dotenv.config({ path: './.evn' });
+  dotenv.config();
 
   mongoose
-    .connect(process.env.MONGO_URL)
+    .connect(
+        process.env.MONGODB_URL 
+      || process.env.MONGODB_URI
+      || `mongodb+srv://${process.env.MONGOBD_ADMIN}:${process.env.MONGOBD_PASSWORD}@blog-mern.uujfxbe.mongodb.net/?retryWrites=true&w=majority`
+      // 'mongodb+srv://admin:blog-mern@blog-mern.uujfxbe.mongodb.net/?retryWrites=true&w=majority'
+    )
     .then(() => console.log('DB Ok'))
     .catch((err) => console.log('DB error', err))
 
